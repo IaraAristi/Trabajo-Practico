@@ -59,6 +59,41 @@ CREATE TABLE ddbba.Socio (
 END
 GO
 
+--Tabla Costo Ingreso Pileta
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
+TABLE_SCHEMA =
+'ddbba' AND TABLE_NAME =
+'IngresoPiletaDiario')
+BEGIN 
+CREATE TABLE ddbba.costoIngresoPileta(
+	CodCostoIngreso INT IDENTITY(1,1) PRIMARY KEY,
+	edad char(1) CHECK (edad = 'A' OR edad = 'M'), -- Edad Adulto o Menor
+	precioSocio DECIMAL(10,2),
+	precioInvitado DECIMAL(10,2),
+	vigencia DATE
+	);
+END 
+GO
+
+--Tabla ingreso pileta diario 
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
+TABLE_SCHEMA =
+'ddbba' AND TABLE_NAME =
+'IngresoPiletaDiario')
+BEGIN 
+CREATE TABLE ddbba.IngresoPiletaDiario(
+	codIngreso INT IDENTITY(1,1) PRIMARY KEY,
+	fecha DATE,
+	hora TIME,
+	ID_socio INT,
+	CodCostoIngreso INT,
+	persona char(1) CHECK (persona = 'S' OR persona = 'I'), -- Socio o Invitado
+	FOREIGN KEY (ID_socio) REFERENCES ddbba.Socio(ID_socio),
+	FOREIGN KEY (CodCostoIngreso) REFERENCES ddbba.costoIngresoPileta(CodCostoIngreso),
+	);
+END
+GO 
+
 --tabla categoria de socio
 DROP TABLE IF EXISTS ddbba.CatSocio;
 GO
@@ -74,6 +109,64 @@ CREATE TABLE ddbba.CatSocio (
     edadHasta INT
 );
 END
+GO
+
+--tabla invitado
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
+TABLE_SCHEMA =
+'ddbba' AND TABLE_NAME =
+'Invitado')
+BEGIN
+CREATE TABLE ddbba.Invitado(
+	codInvitado INT IDENTITY(1,1) PRIMARY KEY,
+	codIngreso INT,
+	nombre VARCHAR(30),
+	apellido VARCHAR(30),
+	fechaNac DATE,
+	dni char(8),
+	direccion varchar(50),
+	email varchar(50),
+	FOREIGN KEY(codIngreso) REFERENCES ddbba.IngresoPiletaDiario(codIngreso)
+	);
+END 
+GO
+
+--Tabla factura Invitado
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
+TABLE_SCHEMA =
+'ddbba' AND TABLE_NAME =
+'FacturaInvitado')
+BEGIN
+CREATE TABLE ddbba.FacturaInvitado(
+	codFactura INT IDENTITY(1,1) PRIMARY KEY,
+	codInvitado INT,
+	fechaEmision DATE,
+	horaEmision TIME,
+	totalNeto DECIMAL(10,2),
+	FOREIGN KEY (codInvitado) REFERENCES ddbba.Invitado(codInvitado)
+	-- foreign de pago factura
+	);
+END
+GO
+
+--Tabla Pago a cuenta
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
+TABLE_SCHEMA =
+'ddbba' AND TABLE_NAME =
+'PagoaCuenta')
+BEGIN
+CREATE TABLE ddbba.PagoaCuenta(
+	codPagoCuenta INT IDENTITY(1,1) PRIMARY KEY,
+	codIngreso INT,
+	ID_socio INT,
+	fecha DATE,
+	hora TIME,
+	monto DECIMAL(10,2),
+	motivo VARCHAR(50),
+	FOREIGN KEY (codIngreso) REFERENCES ddbba.IngresoPiletaDiario(codIngreso),
+	FOREIGN KEY (ID_socio) REFERENCES ddbba.Socio(ID_socio)
+	);
+END 
 GO
 
 --tabla actividad deportiva
