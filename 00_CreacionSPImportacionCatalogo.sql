@@ -17,6 +17,7 @@ END
 GO
 -------------------------------------------
 --tabla inscripcion
+
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
 TABLE_SCHEMA =
 'ddbba' AND TABLE_NAME =
@@ -30,7 +31,9 @@ CREATE TABLE ddbba.Inscripcion (
 END
 GO
 
---tabla
+--tabla socio
+DROP TABLE IF EXISTS ddbba.Socio;
+GO
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
 TABLE_SCHEMA =
 'ddbba' AND TABLE_NAME =
@@ -57,6 +60,8 @@ END
 GO
 
 --tabla categoria de socio
+DROP TABLE IF EXISTS ddbba.CatSocio;
+GO
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
 TABLE_SCHEMA =
 'ddbba' AND TABLE_NAME =
@@ -71,6 +76,7 @@ CREATE TABLE ddbba.CatSocio (
 END
 GO
 
+--tabla actividad deportiva
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
 TABLE_SCHEMA =
 'ddbba' AND TABLE_NAME =
@@ -84,6 +90,7 @@ CREATE TABLE ddbba.actDeportiva (
 END
 GO
 
+--tabla presentismo
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
 TABLE_SCHEMA =
 'ddbba' AND TABLE_NAME =
@@ -101,7 +108,38 @@ CREATE TABLE ddbba.Presentismo (
 END
 GO
 
+--tabla grupo familiar
+DROP TABLE IF EXISTS ddbba.GrupoFamiliar;
+GO
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
+TABLE_SCHEMA =
+'ddbba' AND TABLE_NAME =
+'GrupoFamiliar')
+BEGIN
+CREATE TABLE ddbba.GrupoFamiliar (
+    codGrupo INT IDENTITY(1,1) PRIMARY KEY,
+    socioMenor INT,
+	responsableACargo INT,
+    CONSTRAINT FK_GrupoFamiliar_socioMenor FOREIGN KEY (socioMenor) REFERENCES ddbba.Socio(ID_socio),
+	CONSTRAINT FK_GrupoFamiliar_responsable FOREIGN KEY (responsableACargo) REFERENCES ddbba.Socio(ID_socio),
+);
+END
+GO
 
-
-
-
+--
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
+TABLE_SCHEMA =
+'ddbba' AND TABLE_NAME =
+'Reembolso')
+BEGIN
+CREATE TABLE ddbba.Reembolso (
+    codReembolso INT PRIMARY KEY,
+    fecha DATE,
+    hora TIME,
+    monto DECIMAL(8,2),
+    motivo VARCHAR(50),
+	ID_socio INT,
+	CONSTRAINT FK_reembolso_socio FOREIGN KEY (ID_socio) REFERENCES ddbba.Reembolso(ID_socio),
+);
+END
+GO
