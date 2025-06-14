@@ -30,32 +30,7 @@ CREATE TABLE ddbba.Inscripcion (
 END
 GO
 
---tabla socio
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
-TABLE_SCHEMA =
-'ddbba' AND TABLE_NAME =
-'Socio')
-BEGIN
-CREATE TABLE ddbba.Socio (
-    ID_socio INT  IDENTITY(1,1) PRIMARY KEY,
-    nroSocio char(7),
-    dni char(8),
-    nombre VARCHAR(50),
-    apellido VARCHAR(50),
-    telFijo CHAR(10),
-    telEmergencia CHAR(10),
-    email VARCHAR(50),
-    fechaNac DATE,
-    saldoAFavor DECIMAL(8,2),
-	saldoPendiente DECIMAL(8,2),
-    estado CHAR(1)
-);
-END
-GO
-
-
 --tabla
-
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
 TABLE_SCHEMA =
 'ddbba' AND TABLE_NAME =
@@ -96,7 +71,35 @@ CREATE TABLE ddbba.CatSocio (
 END
 GO
 
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
+TABLE_SCHEMA =
+'ddbba' AND TABLE_NAME =
+'actDeportiva')
+BEGIN
+CREATE TABLE ddbba.actDeportiva (
+    codActividad INT IDENTITY(1,1) PRIMARY KEY,
+    nombreActividad VARCHAR(15),
+    profesor varchar(30)
+);
+END
+GO
 
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
+TABLE_SCHEMA =
+'ddbba' AND TABLE_NAME =
+'Presentismo')
+BEGIN
+CREATE TABLE ddbba.Presentismo (
+    codPresentismo INT IDENTITY(1,1) PRIMARY KEY,
+    fecha date,
+	presentismo char(1),
+	socio int,
+	act int,
+	foreign key (socio) references ddbba.Socio(ID_socio),
+	foreign key (act) references ddbba.actDeportiva(codActividad)
+);
+END
+GO
 
 
 
