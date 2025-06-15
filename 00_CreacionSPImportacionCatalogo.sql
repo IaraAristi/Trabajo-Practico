@@ -17,7 +17,6 @@ END
 GO
 -------------------------------------------
 --tabla inscripcion
-
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
 TABLE_SCHEMA =
 'ddbba' AND TABLE_NAME =
@@ -31,9 +30,28 @@ CREATE TABLE ddbba.Inscripcion (
 END
 GO
 
---tabla socio
-DROP TABLE IF EXISTS ddbba.Socio;
-GO
+/*ALTER TABLE ddbba.Socio
+ALTER COLUMN email VARCHAR(50) NULL;
+
+ALTER TABLE ddbba.Socio
+ALTER COLUMN telFijo CHAR(10) NULL;
+
+ALTER TABLE ddbba.Socio
+ALTER COLUMN saldoPendiente DECIMAL(8,2) NULL;
+
+ALTER TABLE ddbba.Socio
+ALTER COLUMN saldoAFavor DECIMAL(8,2) NULL;
+
+ALTER TABLE ddbba.Socio
+ALTER COLUMN estado CHAR(1) NULL;
+
+ALTER TABLE ddbba.Socio
+ALTER COLUMN telObraSoc VARCHAR(40) NULL;
+
+ALTER TABLE ddbba.Socio
+ALTER COLUMN dni CHAR(9) NULL;*/
+
+--tabla
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
 TABLE_SCHEMA =
 'ddbba' AND TABLE_NAME =
@@ -45,16 +63,31 @@ CREATE TABLE ddbba.Socio (
     dni char(8),
     nombre VARCHAR(50),
     apellido VARCHAR(50),
-    telFijo CHAR(10),
+    telFijo CHAR(10) null,
     telEmergencia CHAR(10),
-    email VARCHAR(50),
+    email VARCHAR(50) null,
     fechaNac DATE,
 	nombreObraSoc varchar(40),
 	numeroObraSoc varchar(20),
 	telObraSoc varchar(25),
-    saldoAFavor DECIMAL(8,2),
-	saldoPendiente DECIMAL(8,2),
-    estado CHAR(1) CHECK (estado = 'A' OR estado = 'I')
+    saldoAFavor DECIMAL(8,2) null,
+	saldoPendiente DECIMAL(8,2) null,
+    estado CHAR(1) CHECK (estado = 'A' OR estado = 'I') null
+);
+END
+GO
+
+--tabla categoria de socio
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
+TABLE_SCHEMA =
+'ddbba' AND TABLE_NAME =
+'CatSocio')
+BEGIN
+CREATE TABLE ddbba.CatSocio (
+    codCategoria INT IDENTITY(1,1) PRIMARY KEY,
+    nombreCategoria VARCHAR(10),
+    edadDesde INT,
+    edadHasta INT
 );
 END
 GO
@@ -219,7 +252,7 @@ CREATE TABLE ddbba.GrupoFamiliar (
 END
 GO
 
---
+--tabla reembolso
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
 TABLE_SCHEMA =
 'ddbba' AND TABLE_NAME =
@@ -236,3 +269,66 @@ CREATE TABLE ddbba.Reembolso (
 );
 END
 GO
+
+
+--IMPORTACION DE TABLAS
+
+-- tabla temporal
+IF OBJECT_ID('tempdb..#sociorp_temporal') IS NOT NULL
+    DROP TABLE #sociorp_temporal;
+CREATE TABLE #sociorp_temporal (
+    [Nro de Socio] VARCHAR(50),
+    [Nombre] VARCHAR(100),
+    [ apellido] VARCHAR(100),
+    [ DNI] VARCHAR(20),
+    [ email personal] VARCHAR(150),
+    [ fecha de nacimiento] VARCHAR(30),
+    [ teléfono de contacto] VARCHAR(30),
+    [ teléfono de contacto emergencia] VARCHAR(30),
+    [ Nombre de la obra social o prepaga] VARCHAR(100),
+    [nro. de socio obra social/prepaga ] VARCHAR(50),
+    [teléfono de contacto de emergencia ] VARCHAR(50)
+);
+
+-- importación csv socio rp
+BULK INSERT #sociorp_temporal
+FROM 'C:\Users\agusr\Downloads\Datos socios.csv'
+WITH (
+    FIRSTROW = 2,
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n',
+    CODEPAGE = '65001'
+);
+
+-- limpieza e inserción en tabla orifinal socio
+INSERT INTO ddbba.Socio (
+    nroSocio,
+    dni,
+    nombre,
+    apellido,
+    telFijo,
+    telEmergencia,
+    email,
+    fechaNac,
+    nombreObraSoc,
+    numeroObraSoc,
+    telObraSoc
+)
+SELECT
+    LTRIM(RTRIM([Nro de Socio])),
+    LTRIM(RTRIM([ DNI])),
+    LTRIM(RTRIM([Nombre])),
+    LTRIM(RTRIM([ apellido])),
+    LTRIM(RTRIM([ teléfono de contacto])),
+    LTRIM(RTRIM([ teléfono de contacto emergencia])),
+    LTRIM(RTRIM([ email personal])),
+	TRY_CAST(LTRIM(RTRIM([ fecha de nacimiento])) AS DATE),
+    LTRIM(RTRIM([ Nombre de la obra social o prepaga])),
+    LTRIM(RTRIM([nro. de socio obra social/prepaga ])),
+    LTRIM(RTRIM([teléfono de contacto de emergencia ]))
+FROM #sociorp_temporal;
+
+select * from ddbba.Socio
+
+
+
