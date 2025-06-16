@@ -1,4 +1,4 @@
-USE master;
+USE master
 GO
 IF EXISTS (SELECT name FROM sys.databases WHERE name = 'Com2900G17')
 BEGIN
@@ -8,7 +8,7 @@ END
 GO
 
 CREATE DATABASE Com2900G17
-COLLATE Latin1_General_CI_AI;
+COLLATE Modern_Spanish_CI_AS;
 GO
 
 USE Com2900G17;

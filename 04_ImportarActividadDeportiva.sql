@@ -33,7 +33,7 @@ BEGIN
 	SELECT DISTINCT
 	 CASE 
         WHEN LOWER(LTRIM(RTRIM(Actividad))) LIKE '%jederez%' THEN 'Ajedrez'
-        ELSE LTRIM(RTRIM(Actividad))
+        ELSE LTRIM(RTRIM(Actividad)) COLLATE Modern_Spanish_CI_AS
 	 END
 	FROM #actividades_temp
 	WHERE NOT EXISTS (
@@ -41,7 +41,7 @@ BEGIN
 		WHERE a.nombreActividad = 
 		 CASE 
             WHEN LOWER(LTRIM(RTRIM(Actividad))) LIKE '%jederez%' THEN 'Ajedrez'
-            ELSE LTRIM(RTRIM(Actividad))
+            ELSE LTRIM(RTRIM(Actividad)) COLLATE Modern_Spanish_CI_AS
 		 END
 	);
 

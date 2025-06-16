@@ -46,9 +46,9 @@ BEGIN
         sResp.ID_socio
     FROM #socio_gf temp
     INNER JOIN ddbba.Socio sMenor
-        ON LTRIM(RTRIM(temp.[Nro de Socio])) = LTRIM(RTRIM(sMenor.nroSocio))
+        ON LTRIM(RTRIM(temp.[Nro de Socio])) COLLATE Modern_Spanish_CI_AS = LTRIM(RTRIM(sMenor.nroSocio)) COLLATE Modern_Spanish_CI_AS
     INNER JOIN ddbba.Socio sResp
-        ON LTRIM(RTRIM(temp.[Nro de socio RP])) = LTRIM(RTRIM(sResp.nroSocio))
+        ON LTRIM(RTRIM(temp.[Nro de socio RP])) COLLATE Modern_Spanish_CI_AS = LTRIM(RTRIM(sResp.nroSocio)) COLLATE Modern_Spanish_CI_AS
     WHERE NOT EXISTS (
         SELECT 1
         FROM ddbba.GrupoFamiliar gf
@@ -59,3 +59,4 @@ BEGIN
     DROP TABLE #socio_gf;
 END;
 GO
+

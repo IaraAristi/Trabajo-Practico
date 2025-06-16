@@ -3,29 +3,29 @@ use Com2900G17;
 
 --archivo Responsables a cargo
 EXEC ddbba.sp_ImportarSociosRP
-    @RutaArchivo = 'C:\Users\Diego\Desktop\LOS DOMINGUEZ\Luana Unlam\Bdda\Trabajo-Practico-master\Trabajo-Practico-master\Responsables a cargo.csv';
+    @RutaArchivo = 'C:\Users\iaraa\OneDrive\Documentos\BDAA\TRABAJOPRACTICO\Trabajo-Practico\Responsables a cargo.csv';
 
 SELECT * FROM ddbba.Socio
 
 --archivo socios menores
 
 EXEC ddbba.sp_InsertarSociosMenores 
-    @rutaArchivo = 'C:\Users\Diego\Desktop\LOS DOMINGUEZ\Luana Unlam\Bdda\Trabajo-Practico-master\Trabajo-Practico-master\Grupo familiar.csv';
+    @rutaArchivo = 'C:\Users\iaraa\OneDrive\Documentos\BDAA\TRABAJOPRACTICO\Trabajo-Practico\Grupo familiar.csv';
 
 SELECT * FROM ddbba.Socio
 
 --archivo RP de grupo familiar
 EXEC ddbba.InsertarRP_GF
-	@rutaArchivo = 'C:\Users\Diego\Desktop\LOS DOMINGUEZ\Luana Unlam\Bdda\Trabajo-Practico-master\Trabajo-Practico-master\Grupo familiar.csv';
+	@rutaArchivo = 'C:\Users\iaraa\OneDrive\Documentos\BDAA\TRABAJOPRACTICO\Trabajo-Practico\Grupo familiar.csv';
 
-
+	--Revisar codigo de grupo -> si dos socios menores tienen el mismo RaC, sean del mismo grupo
 SELECT * FROM ddbba.GrupoFamiliar
 
 --archivo actividad deportiva
 
 
 EXEC ddbba.SP_InsertarActividades
-    @rutaArchivo = 'C:\Users\Diego\Desktop\LOS DOMINGUEZ\Luana Unlam\Bdda\Trabajo-Practico-master\Trabajo-Practico-master\Actividad deportiva.csv';
+    @rutaArchivo = 'C:\Users\iaraa\OneDrive\Documentos\BDAA\TRABAJOPRACTICO\Trabajo-Practico\Actividad deportiva.csv';
 
 
 SELECT * FROM ddbba.actDeportiva
@@ -34,7 +34,7 @@ SELECT * FROM ddbba.actDeportiva
 
 
 EXEC ddbba.sp_cargar_presentismo
-    @rutaArchivo = 'C:\Users\Diego\Desktop\LOS DOMINGUEZ\Luana Unlam\Bdda\Trabajo-Practico-master\Trabajo-Practico-master\Presentismo.csv';
+    @rutaArchivo = 'C:\Users\iaraa\OneDrive\Documentos\BDAA\TRABAJOPRACTICO\Trabajo-Practico\Presentismo.csv';
 
 SELECT * FROM ddbba.Presentismo
 
@@ -42,7 +42,7 @@ SELECT * FROM ddbba.Presentismo
 --archivo categoria de socio
 
 EXEC ddbba.InsertarCatSocio
-    @rutaArchivo = 'C:\Users\Diego\Desktop\LOS DOMINGUEZ\Luana Unlam\Bdda\Trabajo-Practico-master\Trabajo-Practico-master\Categoria de socio.csv';
+    @rutaArchivo = 'C:\Users\iaraa\OneDrive\Documentos\BDAA\TRABAJOPRACTICO\Trabajo-Practico\Categoria de socio.csv';
 
 
 SELECT * FROM ddbba.CatSocio
