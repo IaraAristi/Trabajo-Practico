@@ -1,3 +1,4 @@
+use Com2900G17;
 --LLAMADA A LOS ARCHIVOS
 
 --archivo Responsables a cargo
@@ -14,8 +15,8 @@ EXEC ddbba.sp_InsertarSociosMenores
 SELECT * FROM ddbba.Socio
 
 --archivo RP de grupo familiar
-EXEC ddbba.sp_InsertarSociosMenores 
-    @rutaArchivo = 'C:\Users\Diego\Desktop\LOS DOMINGUEZ\Luana Unlam\Bdda\Trabajo-Practico-master\Trabajo-Practico-master\Grupo familiar.csv';
+EXEC ddbba.InsertarRP_GF
+	@rutaArchivo = 'C:\Users\Diego\Desktop\LOS DOMINGUEZ\Luana Unlam\Bdda\Trabajo-Practico-master\Trabajo-Practico-master\Grupo familiar.csv';
 
 
 SELECT * FROM ddbba.GrupoFamiliar

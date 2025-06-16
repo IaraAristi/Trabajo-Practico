@@ -3,25 +3,10 @@
   <Items>
     <LogicalFolder Name="Connections" Type="2" Sorted="true">
       <Items>
-        <ConnectionNode Name="DESKTOP-V1R6NVL\SQLEXPRESS01:LAPTOP-KOOVHGNG\iaraa">
+        <ConnectionNode Name="DESKTOP-V1R6NVL\SQLEXPRESS01:DESKTOP-V1R6NVL\Diego">
           <Created>2025-06-14T12:53:51.1747736-03:00</Created>
           <Type>SQL</Type>
           <Server>DESKTOP-V1R6NVL\SQLEXPRESS01</Server>
-          <UserName />
-          <Authentication>Windows Authentication</Authentication>
-          <InitialDB />
-          <LoginTimeout>30</LoginTimeout>
-          <TrustServerCertificate>True</TrustServerCertificate>
-          <HostNameInServerCertificate />
-          <EncryptionOption>True</EncryptionOption>
-          <ExecutionTimeout>0</ExecutionTimeout>
-          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
-          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
-        </ConnectionNode>
-        <ConnectionNode Name="LAPTOP-KOOVHGNG:LAPTOP-KOOVHGNG\iaraa">
-          <Created>2025-06-16T00:34:32.9026112-03:00</Created>
-          <Type>SQL</Type>
-          <Server>LAPTOP-KOOVHGNG</Server>
           <UserName />
           <Authentication>Windows Authentication</Authentication>
           <InitialDB />
@@ -38,50 +23,50 @@
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
         <FileNode Name="00_CreacionDeBDyTablas.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:LAPTOP-KOOVHGNG:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>LAPTOP-KOOVHGNG</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-V1R6NVL\SQLEXPRESS01:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-V1R6NVL\SQLEXPRESS01</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>00_CreacionDeBDyTablas.sql</FullPath>
         </FileNode>
         <FileNode Name="01_ImportacionResponsableACargo.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:LAPTOP-KOOVHGNG:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>LAPTOP-KOOVHGNG</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-V1R6NVL\SQLEXPRESS01:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-V1R6NVL\SQLEXPRESS01</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>01_ImportacionResponsableACargo.sql</FullPath>
         </FileNode>
         <FileNode Name="02_ImportacionesGrupoFamiliar.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:LAPTOP-KOOVHGNG:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>LAPTOP-KOOVHGNG</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-V1R6NVL\SQLEXPRESS01:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-V1R6NVL\SQLEXPRESS01</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>02_ImportacionesGrupoFamiliar.sql</FullPath>
         </FileNode>
         <FileNode Name="03_ImportacionesGrupoFamiliarRP.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:LAPTOP-KOOVHGNG:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>LAPTOP-KOOVHGNG</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-V1R6NVL\SQLEXPRESS01:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-V1R6NVL\SQLEXPRESS01</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>03_ImportacionesGrupoFamiliarRP.sql</FullPath>
         </FileNode>
         <FileNode Name="04_ImportarActividadDeportiva.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:LAPTOP-KOOVHGNG:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>LAPTOP-KOOVHGNG</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-V1R6NVL\SQLEXPRESS01:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-V1R6NVL\SQLEXPRESS01</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>04_ImportarActividadDeportiva.sql</FullPath>
         </FileNode>
         <FileNode Name="05_ImportarDatosPresentismo.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:LAPTOP-KOOVHGNG:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>LAPTOP-KOOVHGNG</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-V1R6NVL\SQLEXPRESS01:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-V1R6NVL\SQLEXPRESS01</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>05_ImportarDatosPresentismo.sql</FullPath>
         </FileNode>
         <FileNode Name="06_ImportarCategoriaDeSocio.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:LAPTOP-KOOVHGNG:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>LAPTOP-KOOVHGNG</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-V1R6NVL\SQLEXPRESS01:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-V1R6NVL\SQLEXPRESS01</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>06_ImportarCategoriaDeSocio.sql</FullPath>
         </FileNode>
         <FileNode Name="09_LlamadaALosArchivosCSV.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:LAPTOP-KOOVHGNG:True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>LAPTOP-KOOVHGNG</AssociatedConnSrvName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-V1R6NVL\SQLEXPRESS01:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-V1R6NVL\SQLEXPRESS01</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>09_LlamadaALosArchivosCSV.sql</FullPath>
         </FileNode>

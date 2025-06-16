@@ -1,14 +1,13 @@
 --importacion de RP del grupo familiar
-USE Com2900G17
-GO
 CREATE OR ALTER PROCEDURE ddbba.InsertarRP_GF
     @RutaArchivo VARCHAR(255)
 AS
 BEGIN
+    SET NOCOUNT ON;
 
     IF OBJECT_ID('tempdb..#socio_gf') IS NOT NULL
         DROP TABLE #socio_gf;
-        
+
     CREATE TABLE #socio_gf (
         [Nro de Socio] VARCHAR(50),
         [Nro de socio RP] VARCHAR(50),
@@ -24,9 +23,8 @@ BEGIN
         [teléfono de contacto de emergencia ] VARCHAR(50)
     );
 
-  
-     DECLARE @Sql NVARCHAR(MAX);
-        SET @Sql = N'
+    DECLARE @Sql NVARCHAR(MAX);
+    SET @Sql = N'
         BULK INSERT #socio_gf
         FROM ''' + @RutaArchivo + '''
         WITH (
@@ -34,29 +32,27 @@ BEGIN
             FIELDTERMINATOR = '','',
             ROWTERMINATOR = ''\n'',
             CODEPAGE = ''65001''
-        );';
+        );
+    ';
+    EXEC(@Sql);
 
-  --Falta arreglar esta tabla
-    INSERT INTO ddbba.GrupoFamiliar (
-        socioMenor,
-		responsableACargo,
-    )
+    -- Insertar solo si no existe ya la combinación socioMenor + responsableACargo
+    INSERT INTO ddbba.GrupoFamiliar (socioMenor, responsableACargo)
     SELECT
-        LTRIM(RTRIM([Nro de Socio])),
-        LTRIM(RTRIM([ DNI])),
-        LTRIM(RTRIM([Nombre])),
-        LTRIM(RTRIM([ apellido])),
-        LTRIM(RTRIM([ teléfono de contacto])),
-        LTRIM(RTRIM([ teléfono de contacto emergencia])),
-        LTRIM(RTRIM([ email personal])),
-        TRY_CAST(LTRIM(RTRIM([ fecha de nacimiento])) AS DATE),
-        LTRIM(RTRIM([ Nombre de la obra social o prepaga])),
-        LTRIM(RTRIM([nro. de socio obra social/prepaga ])),
-        LTRIM(RTRIM([teléfono de contacto de emergencia ]))
-    FROM #socio_gf;
-
+        sMenor.ID_socio,
+        sResp.ID_socio
+    FROM #socio_gf temp
+    INNER JOIN ddbba.Socio sMenor
+        ON LTRIM(RTRIM(temp.[Nro de Socio])) = LTRIM(RTRIM(sMenor.nroSocio))
+    INNER JOIN ddbba.Socio sResp
+        ON LTRIM(RTRIM(temp.[Nro de socio RP])) = LTRIM(RTRIM(sResp.nroSocio))
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM ddbba.GrupoFamiliar gf
+        WHERE gf.socioMenor = sMenor.ID_socio
+          AND gf.responsableACargo = sResp.ID_socio
+    );
 
     DROP TABLE #socio_gf;
 END;
-
-
+GO
