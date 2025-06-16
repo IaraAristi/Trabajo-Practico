@@ -61,23 +61,29 @@
           <AssociatedConnUserName />
           <FullPath>03_ImportacionesGrupoFamiliarRP.sql</FullPath>
         </FileNode>
-        <FileNode Name="04_ImportarActividadDeportiva.sql">
+        <FileNode Name="04_ActualizarNumeroDeGrupo.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:LAPTOP-KOOVHGNG:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>LAPTOP-KOOVHGNG</AssociatedConnSrvName>
           <AssociatedConnUserName />
-          <FullPath>04_ImportarActividadDeportiva.sql</FullPath>
+          <FullPath>04_ActualizarNumeroDeGrupo.sql</FullPath>
         </FileNode>
-        <FileNode Name="05_ImportarDatosPresentismo.sql">
+        <FileNode Name="05_ImportarActividadDeportiva.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:LAPTOP-KOOVHGNG:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>LAPTOP-KOOVHGNG</AssociatedConnSrvName>
           <AssociatedConnUserName />
-          <FullPath>05_ImportarDatosPresentismo.sql</FullPath>
+          <FullPath>05_ImportarActividadDeportiva.sql</FullPath>
         </FileNode>
         <FileNode Name="06_ImportarCategoriaDeSocio.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:LAPTOP-KOOVHGNG:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>LAPTOP-KOOVHGNG</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>06_ImportarCategoriaDeSocio.sql</FullPath>
+        </FileNode>
+        <FileNode Name="07_ImportarDatosPresentismo.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:LAPTOP-KOOVHGNG:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>LAPTOP-KOOVHGNG</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>07_ImportarDatosPresentismo.sql</FullPath>
         </FileNode>
         <FileNode Name="09_LlamadaALosArchivosCSV.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:LAPTOP-KOOVHGNG:True</AssociatedConnectionMoniker>

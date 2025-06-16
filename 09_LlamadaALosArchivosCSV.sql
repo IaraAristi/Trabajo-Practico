@@ -21,6 +21,10 @@ EXEC ddbba.InsertarRP_GF
 	--Revisar codigo de grupo -> si dos socios menores tienen el mismo RaC, sean del mismo grupo
 SELECT * FROM ddbba.GrupoFamiliar
 
+--Actualizacion de los numeros de grupo
+EXEC ddbba.ActualizarNumeroDeGrupo
+SELECT * FROM ddbba.GrupoFamiliar 
+
 --archivo actividad deportiva
 
 

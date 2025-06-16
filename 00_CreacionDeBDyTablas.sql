@@ -1,5 +1,13 @@
-USE master
+USE master;
 GO
+-- Cierra todas las conexiones activas a la base de datos Com2900G17
+ALTER DATABASE Com2900G17
+SET SINGLE_USER
+WITH ROLLBACK IMMEDIATE; -- Cierra las conexiones inmediatamente
+
+-- Espera un poco (opcional, pero puede ayudar si hay latencia)
+WAITFOR DELAY '00:00:01';
+
 IF EXISTS (SELECT name FROM sys.databases WHERE name = 'Com2900G17')
 BEGIN
 	USE master;
@@ -143,7 +151,8 @@ GO
 
 -- Tabla GrupoFamiliar
 CREATE TABLE ddbba.GrupoFamiliar (
-    codGrupo INT IDENTITY(1,1) PRIMARY KEY,
+    idRelacion INT IDENTITY(1,1) PRIMARY KEY,
+	nroGrupo INT,
     socioMenor INT,
     responsableACargo INT,
     CONSTRAINT FK_GrupoFamiliar_socioMenor FOREIGN KEY (socioMenor) REFERENCES ddbba.Socio(ID_socio),
