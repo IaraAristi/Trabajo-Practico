@@ -1,3 +1,5 @@
+USE Com2900G17
+GO
 CREATE OR ALTER PROCEDURE ddbba.SP_InsertarActividades
     @rutaArchivo NVARCHAR(260)  -- Ejemplo: 'C:\ruta\actividades.csv'
 AS

@@ -1,3 +1,5 @@
+USE Com2900G17
+GO
 CREATE OR ALTER PROCEDURE ddbba.InsertarCatSocio
     @RutaArchivo VARCHAR(255)
 AS

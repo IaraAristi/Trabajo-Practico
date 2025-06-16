@@ -1,4 +1,6 @@
 --importacion de RP del grupo familiar
+USE Com2900G17
+GO
 CREATE OR ALTER PROCEDURE ddbba.InsertarRP_GF
     @RutaArchivo VARCHAR(255)
 AS
@@ -34,7 +36,7 @@ BEGIN
             CODEPAGE = ''65001''
         );';
 
-  
+  --Falta arreglar esta tabla
     INSERT INTO ddbba.GrupoFamiliar (
         socioMenor,
 		responsableACargo,

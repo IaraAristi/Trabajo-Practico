@@ -2,6 +2,7 @@ USE master;
 GO
 IF EXISTS (SELECT name FROM sys.databases WHERE name = 'Com2900G17')
 BEGIN
+	USE master;
     DROP DATABASE Com2900G17;
 END
 GO
@@ -167,7 +168,7 @@ GO
 
 --ELIMINACION DE TABLAS EN ORDEN
 -- Tablas dependientes (con FOREIGN KEYS hacia otras)
-DROP TABLE IF EXISTS ddbba.FacturaInvitado;
+/*DROP TABLE IF EXISTS ddbba.FacturaInvitado;
 DROP TABLE IF EXISTS ddbba.Invitado;
 DROP TABLE IF EXISTS ddbba.PagoaCuenta;
 DROP TABLE IF EXISTS ddbba.IngresoPiletaDiario;
@@ -181,5 +182,5 @@ DROP TABLE IF EXISTS ddbba.Socio;
 DROP TABLE IF EXISTS ddbba.CatSocio;
 DROP TABLE IF EXISTS ddbba.costoIngresoPileta;
 DROP TABLE IF EXISTS ddbba.Inscripcion;
-
+*/
 

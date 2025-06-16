@@ -1,4 +1,6 @@
 --importacion de responsables a cargo
+USE Com2900G17
+GO
 CREATE OR ALTER PROCEDURE ddbba.sp_ImportarSociosRP
     @RutaArchivo NVARCHAR(500)
 AS

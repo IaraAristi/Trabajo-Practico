@@ -1,4 +1,6 @@
 --tabla socios menores
+USE Com2900G17
+GO
 CREATE OR ALTER PROCEDURE ddbba.sp_InsertarSociosMenores
     @rutaArchivo NVARCHAR(260)
 AS
