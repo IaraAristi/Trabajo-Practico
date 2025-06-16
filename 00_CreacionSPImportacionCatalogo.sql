@@ -1,289 +1,185 @@
-Use master
-go
-IF NOT EXISTS ( SELECT name FROM master.dbo.sysdatabases WHERE name =
-'Com2900G17')
+USE master;
+GO
+IF EXISTS (SELECT name FROM sys.databases WHERE name = 'Com2900G17')
 BEGIN
+    DROP DATABASE Com2900G17;
+END
+GO
+
 CREATE DATABASE Com2900G17
 COLLATE Latin1_General_CI_AI;
-END
-go
-use Com2900G17
-go
-IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name =
-'ddbba')
-BEGIN
-EXEC('CREATE SCHEMA ddbba')
-END
 GO
--------------------------------------------
---tabla inscripcion
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
-TABLE_SCHEMA =
-'ddbba' AND TABLE_NAME =
-'Inscripcion')
+
+USE Com2900G17;
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'ddbba')
 BEGIN
-CREATE TABLE ddbba.Inscripcion (
-    idInscripcion INT  IDENTITY(1,1) PRIMARY KEY,
-    fecha DATE,
-    hora TIME,
-);
+    EXEC('CREATE SCHEMA ddbba');
 END
 GO
 
-/*ALTER TABLE ddbba.Socio
-ALTER COLUMN email VARCHAR(50) NULL;
+-----TABLAS----------
 
-ALTER TABLE ddbba.Socio
-ALTER COLUMN telFijo CHAR(10) NULL;
-
-ALTER TABLE ddbba.Socio
-ALTER COLUMN saldoPendiente DECIMAL(8,2) NULL;
-
-ALTER TABLE ddbba.Socio
-ALTER COLUMN saldoAFavor DECIMAL(8,2) NULL;
-
-ALTER TABLE ddbba.Socio
-ALTER COLUMN estado CHAR(1) NULL;
-
-ALTER TABLE ddbba.Socio
-ALTER COLUMN telObraSoc VARCHAR(40) NULL;
-
-ALTER TABLE ddbba.Socio
-ALTER COLUMN dni CHAR(9) NULL;
-
-ALTER TABLE ddbba.Socio
-ALTER COLUMN telEmergencia CHAR(10) NULL
-
-ALTER TABLE ddbba.Socio
-ALTER COLUMN nombreObraSoc VARCHAR(40) NULL
-
-ALTER TABLE ddbba.Socio
-ALTER COLUMN numeroObraSoc VARCHAR(20) NULL
-
-ALTER TABLE ddbba.Socio
-ALTER COLUMN telObraSoc CHAR(30) NULL*/
-
---tabla
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
-TABLE_SCHEMA =
-'ddbba' AND TABLE_NAME =
-'Socio')
-BEGIN
+-- Tabla Socio
 CREATE TABLE ddbba.Socio (
-    ID_socio INT  IDENTITY(1,1) PRIMARY KEY,
-    nroSocio char(7),
-    dni char(8),
+    ID_socio INT IDENTITY(1,1) PRIMARY KEY,
+    nroSocio CHAR(7) UNIQUE,
+    dni CHAR(9) NULL,
     nombre VARCHAR(50),
     apellido VARCHAR(50),
-    telFijo CHAR(10) null,
-    telEmergencia CHAR(10),
-    email VARCHAR(50) null,
+    telFijo CHAR(10) NULL,
+    telEmergencia CHAR(10) NULL,
+    email VARCHAR(50) NULL,
     fechaNac DATE,
-	nombreObraSoc varchar(40),
-	numeroObraSoc varchar(20),
-	telObraSoc varchar(25),
-    saldoAFavor DECIMAL(8,2) null,
-	saldoPendiente DECIMAL(8,2) null,
-    estado CHAR(1) CHECK (estado = 'A' OR estado = 'I') null
+    nombreObraSoc VARCHAR(40) NULL,
+    numeroObraSoc VARCHAR(20) NULL,
+    telObraSoc CHAR(30) NULL,
+    saldoAFavor DECIMAL(8,2) NULL,
+    saldoPendiente DECIMAL(8,2) NULL,
+    estado CHAR(1) CHECK (estado IN ('A','I')) NULL
 );
-END
 GO
 
---tabla categoria de socio
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
-TABLE_SCHEMA =
-'ddbba' AND TABLE_NAME =
-'CatSocio')
-BEGIN
+-- Tabla CatSocio
 CREATE TABLE ddbba.CatSocio (
     codCategoria INT IDENTITY(1,1) PRIMARY KEY,
     nombreCategoria VARCHAR(10),
     edadDesde INT,
     edadHasta INT
 );
-END
 GO
 
---Tabla Costo Ingreso Pileta
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
-TABLE_SCHEMA =
-'ddbba' AND TABLE_NAME =
-'IngresoPiletaDiario')
-BEGIN 
-CREATE TABLE ddbba.costoIngresoPileta(
-	CodCostoIngreso INT IDENTITY(1,1) PRIMARY KEY,
-	edad char(1) CHECK (edad = 'A' OR edad = 'M'), -- Edad Adulto o Menor
-	precioSocio DECIMAL(10,2),
-	precioInvitado DECIMAL(10,2),
-	vigencia DATE
-	);
-END 
-GO
-
---Tabla ingreso pileta diario 
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
-TABLE_SCHEMA =
-'ddbba' AND TABLE_NAME =
-'IngresoPiletaDiario')
-BEGIN 
-CREATE TABLE ddbba.IngresoPiletaDiario(
-	codIngreso INT IDENTITY(1,1) PRIMARY KEY,
-	fecha DATE,
-	hora TIME,
-	ID_socio INT,
-	CodCostoIngreso INT,
-	persona char(1) CHECK (persona = 'S' OR persona = 'I'), -- Socio o Invitado
-	FOREIGN KEY (ID_socio) REFERENCES ddbba.Socio(ID_socio),
-	FOREIGN KEY (CodCostoIngreso) REFERENCES ddbba.costoIngresoPileta(CodCostoIngreso),
-	);
-END
-GO 
-
---tabla categoria de socio
-DROP TABLE IF EXISTS ddbba.CatSocio;
-GO
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
-TABLE_SCHEMA =
-'ddbba' AND TABLE_NAME =
-'CatSocio')
-BEGIN
-CREATE TABLE ddbba.CatSocio (
-    codCategoria INT IDENTITY(1,1) PRIMARY KEY,
-    nombreCategoria VARCHAR(10),
-    edadDesde INT,
-    edadHasta INT
-);
-END
-GO
-
---tabla invitado
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
-TABLE_SCHEMA =
-'ddbba' AND TABLE_NAME =
-'Invitado')
-BEGIN
-CREATE TABLE ddbba.Invitado(
-	codInvitado INT IDENTITY(1,1) PRIMARY KEY,
-	codIngreso INT,
-	nombre VARCHAR(30),
-	apellido VARCHAR(30),
-	fechaNac DATE,
-	dni char(8),
-	direccion varchar(50),
-	email varchar(50),
-	FOREIGN KEY(codIngreso) REFERENCES ddbba.IngresoPiletaDiario(codIngreso)
-	);
-END 
-GO
-
---Tabla factura Invitado
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
-TABLE_SCHEMA =
-'ddbba' AND TABLE_NAME =
-'FacturaInvitado')
-BEGIN
-CREATE TABLE ddbba.FacturaInvitado(
-	codFactura INT IDENTITY(1,1) PRIMARY KEY,
-	codInvitado INT,
-	fechaEmision DATE,
-	horaEmision TIME,
-	totalNeto DECIMAL(10,2),
-	FOREIGN KEY (codInvitado) REFERENCES ddbba.Invitado(codInvitado)
-	-- foreign de pago factura
-	);
-END
-GO
-
---Tabla Pago a cuenta
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
-TABLE_SCHEMA =
-'ddbba' AND TABLE_NAME =
-'PagoaCuenta')
-BEGIN
-CREATE TABLE ddbba.PagoaCuenta(
-	codPagoCuenta INT IDENTITY(1,1) PRIMARY KEY,
-	codIngreso INT,
-	ID_socio INT,
-	fecha DATE,
-	hora TIME,
-	monto DECIMAL(10,2),
-	motivo VARCHAR(50),
-	FOREIGN KEY (codIngreso) REFERENCES ddbba.IngresoPiletaDiario(codIngreso),
-	FOREIGN KEY (ID_socio) REFERENCES ddbba.Socio(ID_socio)
-	);
-END 
-GO
-
---tabla actividad deportiva
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
-TABLE_SCHEMA =
-'ddbba' AND TABLE_NAME =
-'actDeportiva')
-BEGIN
+-- Tabla actDeportiva
 CREATE TABLE ddbba.actDeportiva (
     codActividad INT IDENTITY(1,1) PRIMARY KEY,
-    nombreActividad VARCHAR(15),
-    profesor varchar(30)
+    nombreActividad VARCHAR(15)
 );
-END
 GO
 
---tabla presentismo
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
-TABLE_SCHEMA =
-'ddbba' AND TABLE_NAME =
-'Presentismo')
-BEGIN
+-- Tabla Inscripcion
+CREATE TABLE ddbba.Inscripcion (
+    idInscripcion INT IDENTITY(1,1) PRIMARY KEY,
+    fecha DATE,
+    hora TIME
+);
+GO
+
+-- Tabla costoIngresoPileta
+CREATE TABLE ddbba.costoIngresoPileta (
+    CodCostoIngreso INT IDENTITY(1,1) PRIMARY KEY,
+    edad CHAR(1) CHECK (edad IN ('A','M')),
+    precioSocio DECIMAL(10,2),
+    precioInvitado DECIMAL(10,2),
+    vigencia DATE
+);
+GO
+
+-- Tabla IngresoPiletaDiario
+CREATE TABLE ddbba.IngresoPiletaDiario (
+    codIngreso INT IDENTITY(1,1) PRIMARY KEY,
+    fecha DATE,
+    hora TIME,
+    ID_socio INT,
+    CodCostoIngreso INT,
+    persona CHAR(1) CHECK (persona IN ('S','I')),
+    CONSTRAINT FK_IngresoPiletaDiario_idsocio FOREIGN KEY (ID_socio) REFERENCES ddbba.Socio(ID_socio),
+    CONSTRAINT FK_IngresoPiletaDiario_codcostoingreso FOREIGN KEY (CodCostoIngreso) REFERENCES ddbba.costoIngresoPileta(CodCostoIngreso)
+);
+GO
+
+-- Tabla PagoaCuenta
+CREATE TABLE ddbba.PagoaCuenta (
+    codPagoCuenta INT IDENTITY(1,1) PRIMARY KEY,
+    codIngreso INT,
+    ID_socio INT,
+    fecha DATE,
+    hora TIME,
+    monto DECIMAL(10,2),
+    motivo VARCHAR(50),
+    CONSTRAINT FK_PagoaCuenta_codingreso FOREIGN KEY (codIngreso) REFERENCES ddbba.IngresoPiletaDiario(codIngreso),
+    CONSTRAINT FK_PagoaCuenta_idsocio FOREIGN KEY (ID_socio) REFERENCES ddbba.Socio(ID_socio)
+);
+GO
+
+-- Tabla Invitado
+CREATE TABLE ddbba.Invitado (
+    codInvitado INT IDENTITY(1,1) PRIMARY KEY,
+    codIngreso INT,
+    nombre VARCHAR(30),
+    apellido VARCHAR(30),
+    fechaNac DATE,
+    dni CHAR(8),
+    direccion VARCHAR(50),
+    email VARCHAR(50),
+    CONSTRAINT FK_Invitado_codingreso FOREIGN KEY (codIngreso) REFERENCES ddbba.IngresoPiletaDiario(codIngreso)
+);
+GO
+
+-- Tabla FacturaInvitado
+CREATE TABLE ddbba.FacturaInvitado (
+    codFactura INT IDENTITY(1,1) PRIMARY KEY,
+    codInvitado INT,
+    fechaEmision DATE,
+    horaEmision TIME,
+    totalNeto DECIMAL(10,2),
+    CONSTRAINT FK_FacturaInvitado_codinvitado FOREIGN KEY (codInvitado) REFERENCES ddbba.Invitado(codInvitado)
+);
+GO
+
+-- Tabla Presentismo
 CREATE TABLE ddbba.Presentismo (
     codPresentismo INT IDENTITY(1,1) PRIMARY KEY,
-    fecha date,
-	presentismo char(1),
-	socio int,
-	act int,
-	foreign key (socio) references ddbba.Socio(ID_socio),
-	foreign key (act) references ddbba.actDeportiva(codActividad)
+    fecha DATE,
+    presentismo CHAR(1),
+    socio INT,
+    act INT,
+    profesor VARCHAR(30),
+    CONSTRAINT FK_Presentismo_socio FOREIGN KEY (socio) REFERENCES ddbba.Socio(ID_socio),
+    CONSTRAINT FK_Presentismo_actividad FOREIGN KEY (act) REFERENCES ddbba.actDeportiva(codActividad)
 );
-END
 GO
 
---tabla grupo familiar
-DROP TABLE IF EXISTS ddbba.GrupoFamiliar;
-GO
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
-TABLE_SCHEMA =
-'ddbba' AND TABLE_NAME =
-'GrupoFamiliar')
-BEGIN
+-- Tabla GrupoFamiliar
 CREATE TABLE ddbba.GrupoFamiliar (
     codGrupo INT IDENTITY(1,1) PRIMARY KEY,
     socioMenor INT,
-	responsableACargo INT,
+    responsableACargo INT,
     CONSTRAINT FK_GrupoFamiliar_socioMenor FOREIGN KEY (socioMenor) REFERENCES ddbba.Socio(ID_socio),
-	CONSTRAINT FK_GrupoFamiliar_responsable FOREIGN KEY (responsableACargo) REFERENCES ddbba.Socio(ID_socio),
+    CONSTRAINT FK_GrupoFamiliar_responsable FOREIGN KEY (responsableACargo) REFERENCES ddbba.Socio(ID_socio)
 );
-END
 GO
 
---tabla reembolso
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE
-TABLE_SCHEMA =
-'ddbba' AND TABLE_NAME =
-'Reembolso')
-BEGIN
+-- Tabla Reembolso
 CREATE TABLE ddbba.Reembolso (
     codReembolso INT PRIMARY KEY,
     fecha DATE,
     hora TIME,
     monto DECIMAL(8,2),
     motivo VARCHAR(50),
-	ID_socio INT,
-	CONSTRAINT FK_reembolso_socio FOREIGN KEY (ID_socio) REFERENCES ddbba.Reembolso(ID_socio),
+    ID_socio INT,
+    CONSTRAINT FK_reembolso_socio FOREIGN KEY (ID_socio) REFERENCES ddbba.Socio(ID_socio)
 );
-END
 GO
 
 
 
 
+--ELIMINACION DE TABLAS EN ORDEN
+-- Tablas dependientes (con FOREIGN KEYS hacia otras)
+DROP TABLE IF EXISTS ddbba.FacturaInvitado;
+DROP TABLE IF EXISTS ddbba.Invitado;
+DROP TABLE IF EXISTS ddbba.PagoaCuenta;
+DROP TABLE IF EXISTS ddbba.IngresoPiletaDiario;
+DROP TABLE IF EXISTS ddbba.Presentismo;
+DROP TABLE IF EXISTS ddbba.GrupoFamiliar;
+DROP TABLE IF EXISTS ddbba.Reembolso;
+
+-- Tablas base (referenciadas por otras)
+DROP TABLE IF EXISTS ddbba.actDeportiva;
+DROP TABLE IF EXISTS ddbba.Socio;
+DROP TABLE IF EXISTS ddbba.CatSocio;
+DROP TABLE IF EXISTS ddbba.costoIngresoPileta;
+DROP TABLE IF EXISTS ddbba.Inscripcion;
 
 
