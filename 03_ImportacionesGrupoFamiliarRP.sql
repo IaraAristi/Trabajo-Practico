@@ -1,4 +1,7 @@
 --importacion de RP del grupo familiar
+USE Com2900G17
+GO
+--importacion de RP del grupo familiar
 CREATE OR ALTER PROCEDURE ddbba.InsertarRP_GF
     @RutaArchivo VARCHAR(255)
 AS
