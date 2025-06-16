@@ -22,17 +22,53 @@
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
-        <FileNode Name="00_CreacionSPImportacionCatalogo.sql">
+        <FileNode Name="00_CreacionDeBDyTablas.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-V1R6NVL\SQLEXPRESS01:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>DESKTOP-V1R6NVL\SQLEXPRESS01</AssociatedConnSrvName>
           <AssociatedConnUserName />
-          <FullPath>00_CreacionSPImportacionCatalogo.sql</FullPath>
+          <FullPath>00_CreacionDeBDyTablas.sql</FullPath>
         </FileNode>
-        <FileNode Name="SQLQuery2.sql">
+        <FileNode Name="01_ImportacionResponsableACargo.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-V1R6NVL\SQLEXPRESS01:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>DESKTOP-V1R6NVL\SQLEXPRESS01</AssociatedConnSrvName>
           <AssociatedConnUserName />
-          <FullPath>SQLQuery2.sql</FullPath>
+          <FullPath>01_ImportacionResponsableACargo.sql</FullPath>
+        </FileNode>
+        <FileNode Name="02_ImportacionesGrupoFamiliar.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-V1R6NVL\SQLEXPRESS01:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-V1R6NVL\SQLEXPRESS01</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>02_ImportacionesGrupoFamiliar.sql</FullPath>
+        </FileNode>
+        <FileNode Name="03_ImportacionesGrupoFamiliarRP.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-V1R6NVL\SQLEXPRESS01:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-V1R6NVL\SQLEXPRESS01</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>03_ImportacionesGrupoFamiliarRP.sql</FullPath>
+        </FileNode>
+        <FileNode Name="04_ImportarActividadDeportiva.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-V1R6NVL\SQLEXPRESS01:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-V1R6NVL\SQLEXPRESS01</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>04_ImportarActividadDeportiva.sql</FullPath>
+        </FileNode>
+        <FileNode Name="05_ImportarDatosPresentismo.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-V1R6NVL\SQLEXPRESS01:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-V1R6NVL\SQLEXPRESS01</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>05_ImportarDatosPresentismo.sql</FullPath>
+        </FileNode>
+        <FileNode Name="06_ImportarCategoriaDeSocio.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-V1R6NVL\SQLEXPRESS01:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-V1R6NVL\SQLEXPRESS01</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>06_ImportarCategoriaDeSocio.sql</FullPath>
+        </FileNode>
+        <FileNode Name="09_LlamadaALosArchivosCSV.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-V1R6NVL\SQLEXPRESS01:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-V1R6NVL\SQLEXPRESS01</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>09_LlamadaALosArchivosCSV.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>
