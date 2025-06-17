@@ -40,7 +40,24 @@ BEGIN
 
     EXEC sp_executesql @SQL;
 
-    -- Insertar en la tabla definitiva Socio
+    -- Actualizar registros existentes por nroSocio
+    UPDATE S
+    SET
+        S.dni = LTRIM(RTRIM(T.[ DNI])),
+        S.nombre = LTRIM(RTRIM(T.[Nombre])),
+        S.apellido = LTRIM(RTRIM(T.[ apellido])),
+        S.telFijo = LTRIM(RTRIM(T.[ teléfono de contacto])),
+        S.telEmergencia = LTRIM(RTRIM(T.[ teléfono de contacto emergencia])),
+        S.email = LTRIM(RTRIM(T.[ email personal])),
+        S.fechaNac = TRY_CAST(LTRIM(RTRIM(T.[ fecha de nacimiento])) AS DATE),
+        S.nombreObraSoc = LTRIM(RTRIM(T.[ Nombre de la obra social o prepaga])),
+        S.numeroObraSoc = LTRIM(RTRIM(T.[nro. de socio obra social/prepaga ])),
+        S.telObraSoc = LTRIM(RTRIM(T.[teléfono de contacto de emergencia ]))
+    FROM ddbba.Socio S
+    INNER JOIN #sociorp_temporal T
+        ON S.nroSocio = LTRIM(RTRIM(T.[Nro de Socio]));
+
+    -- Insertar nuevos registros que no existan aún
     INSERT INTO ddbba.Socio (
         nroSocio,
         dni,
@@ -66,6 +83,12 @@ BEGIN
         LTRIM(RTRIM([ Nombre de la obra social o prepaga])),
         LTRIM(RTRIM([nro. de socio obra social/prepaga ])),
         LTRIM(RTRIM([teléfono de contacto de emergencia ]))
-    FROM #sociorp_temporal;
+    FROM #sociorp_temporal
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM ddbba.Socio S
+        WHERE S.nroSocio = LTRIM(RTRIM(#sociorp_temporal.[Nro de Socio]))
+    );
 END;
 GO
+
